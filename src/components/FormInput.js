@@ -51,13 +51,13 @@ export default function FormInput({
    * @return {Void}
    */
   const handleWheel = e => {
-    const newValue =
+    const newAmount =
       e.deltaY >= 0
         ? Math.min(amount + step, maxRange)
         : Math.max(amount - step, minRange);
 
-    setAmount(newValue);
-    onChange(newValue);
+    setAmount(newAmount);
+    onChange(newAmount);
   };
 
   useEffect(() => {
@@ -69,6 +69,7 @@ export default function FormInput({
     }
 
     setAmount(newAmount);
+    onChange(newAmount);
   }, [range]);
 
   return (
