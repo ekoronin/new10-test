@@ -39,8 +39,8 @@ export default function FormInput({
     }
 
     if (regexp.test(newValue) && numValue <= maxRange && numValue >= minRange) {
-      setAmount(newValue);
-      onChange(newValue);
+      setAmount(numValue);
+      onChange(numValue);
     }
   };
 
