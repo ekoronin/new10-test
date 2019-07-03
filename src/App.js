@@ -25,7 +25,6 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      amount: 0,
       rate: 0,
       range: [0, 0],
       durationsSelectorData: [] //this one changes depending on the goal/form combi
@@ -41,6 +40,7 @@ class App extends Component {
     this.form = '';
     this.duration = 0;
     this.loan = null;
+    this.amount = 0;
   }
 
   /**
@@ -85,11 +85,11 @@ class App extends Component {
     this.goal = this.data.goals[index];
     this.updateLoan();
 
-    this.setState(state => ({
+    this.setState({
       durationSelectorData: this.getDurationSelectData(),
-      rate: calculateRate(state.amount, this.duration, this.loan),
+      rate: calculateRate(this.amount, this.duration, this.loan),
       range: [this.loan.minAmount, this.loan.maxAmount]
-    }));
+    });
   };
 
   /**
@@ -105,11 +105,11 @@ class App extends Component {
     this.form = this.data.forms[index];
     this.updateLoan();
 
-    this.setState(state => ({
+    this.setState({
       durationSelectorData: this.getDurationSelectData(),
-      rate: calculateRate(state.amount, this.duration, this.loan),
+      rate: calculateRate(this.amount, this.duration, this.loan),
       range: [this.loan.minAmount, this.loan.maxAmount]
-    }));
+    });
   };
 
   /**
@@ -121,9 +121,9 @@ class App extends Component {
    * @return {Void} strings for duration selector
    */
   handleAmount = amount => {
+    this.amount = amount;
     this.setState({
-      amount,
-      rate: calculateRate(amount, this.duration, this.loan)
+      rate: calculateRate(this.amount, this.duration, this.loan)
     });
   };
 
@@ -139,7 +139,7 @@ class App extends Component {
     this.duration = this.data.durations[index];
 
     this.setState(state => ({
-      rate: calculateRate(state.amount, this.duration, this.loan)
+      rate: calculateRate(this.amount, this.duration, this.loan)
     }));
   };
 
@@ -165,8 +165,8 @@ class App extends Component {
     const { minAmount, maxAmount, minDuration } = this.loan;
 
     this.duration = minDuration;
+    this.amount = minAmount;
     this.setState({
-      amount: minAmount,
       range: [minAmount, maxAmount],
       durationSelectorData: this.getDurationSelectData(),
       rate: calculateRate(minAmount, minDuration, this.loan)
@@ -203,7 +203,7 @@ class App extends Component {
               id='amount-input'
               onChange={this.handleAmount}
               regexp={/^[0-9]*$/}
-              value={this.state.amount}
+              value={this.amount}
               step={1000}
               range={this.state.range}
             >
