@@ -26,6 +26,7 @@ export function calculateRate(amount = 0, duration, loan) {
 
   return (
     minRate +
-    (duration / loan.maxDuration) * (maxRate - minRate)
+    ((duration - loan.minDuration) / (loan.maxDuration - loan.minDuration)) *
+      (maxRate - minRate)
   ).toFixed(2);
 }
