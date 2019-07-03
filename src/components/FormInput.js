@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 /**  This is FormInput
@@ -59,6 +59,17 @@ export default function FormInput({
     setAmount(newValue);
     onChange(newValue);
   };
+
+  useEffect(() => {
+    let newAmount = amount;
+    if (amount < minRange) {
+      newAmount = minRange;
+    } else if (amount > maxRange) {
+      newAmount = maxRange;
+    }
+
+    setAmount(newAmount);
+  }, [range]);
 
   return (
     <div>

@@ -5,7 +5,7 @@ const loans = [
   {
     goalId: '0',
     formId: '0',
-    minAmount: 0,
+    minAmount: 5000,
     maxAmount: 250000,
     minDuration: 3,
     maxDuration: 36
@@ -13,7 +13,7 @@ const loans = [
   {
     goalId: '0',
     formId: '1',
-    minAmount: 0,
+    minAmount: 5000,
     maxAmount: 250000,
     minDuration: 3,
     maxDuration: 36
@@ -21,7 +21,7 @@ const loans = [
   {
     goalId: '1',
     formId: '0',
-    minAmount: 0,
+    minAmount: 10000,
     maxAmount: 500000,
     minDuration: 3,
     maxDuration: 60
@@ -29,7 +29,7 @@ const loans = [
   {
     goalId: '1',
     formId: '1',
-    minAmount: 0,
+    minAmount: 10000,
     maxAmount: 250000,
     minDuration: 3,
     maxDuration: 60
