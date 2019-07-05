@@ -1,0 +1,42 @@
+{
+  "goals": [
+    { "type": "Marketing", "id": "0" },
+    { "type": "Equipment", "id": "1" }
+  ],
+  "forms": [{ "type": "BV", "id": "0" }, { "type": "Eenmanzaak", "id": "1" }],
+  "loans": [
+    {
+      "goalId": "0",
+      "formId": "0",
+      "minAmount": 5000,
+      "maxAmount": 250000,
+      "minDuration": 3,
+      "maxDuration": 36
+    },
+    {
+      "goalId": "0",
+      "formId": "1",
+      "minAmount": 5000,
+      "maxAmount": 250000,
+      "minDuration": 3,
+      "maxDuration": 36
+    },
+    {
+      "goalId": "1",
+      "formId": "0",
+      "minAmount": 10000,
+      "maxAmount": 500000,
+      "minDuration": 3,
+      "maxDuration": 60
+    },
+    {
+      "goalId": "1",
+      "formId": "1",
+      "minAmount": 10000,
+      "maxAmount": 250000,
+      "minDuration": 3,
+      "maxDuration": 60
+    }
+  ],
+  "durations": [3, 6, 9, 12, 18, 24, 30, 36, 48, 60]
+}

@@ -1,0 +1,20 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "srv:json": "json-server json/db.json",
+    "srv:gql": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-graphql": "^0.8.0",
+    "graphql": "^14.4.2",
+    "query-string": "^6.8.1"
+  }
+}
