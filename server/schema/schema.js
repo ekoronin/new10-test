@@ -78,8 +78,8 @@ const RootQuery = new GraphQLObjectType({
     goal: {
       type: GoalType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parent, args) {
-        return getGoal(args.id);
+      resolve(parent, { id }) {
+        return getGoal(id);
       }
     },
     goals: {
@@ -91,8 +91,8 @@ const RootQuery = new GraphQLObjectType({
     form: {
       type: FormType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
-      resolve(parent, args) {
-        return getForm(args.id);
+      resolve(parent, { id }) {
+        return getForm(id);
       }
     },
     forms: {
