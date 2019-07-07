@@ -89,7 +89,7 @@ export default function FormInput({
       </div>
       {amount < minRange ? (
         <span className='tip'>
-          Amount must be higher than {minRange} and lower than {maxRange}
+          Amount must be higher than {minRange} and lower than {maxRange}.
         </span>
       ) : null}
     </div>
