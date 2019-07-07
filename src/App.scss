@@ -71,7 +71,10 @@ input {
     padding: 0 5px 0 5px;
 }
 
-
+#duration-selector,
+#amount-input {
+    cursor: row-resize;
+}
 
 #main-container {
     display: grid;
@@ -94,18 +97,22 @@ input {
 }
 
 #left-container {
+    padding: 10px;
+}
+
+#left-container #loan-form {
     display: grid;
     grid-template-columns: 100%;
     grid-auto-flow: row;
     justify-items: stretch;
     align-items: start;
     align-content: space-between;
-    padding: 10px;
+
     grid-column-gap: 10px;
 }
 
 @media screen and (min-width: 1200px) {
-    #left-container {
+    #left-container #loan-form {
         grid-template-columns: 50% 50%;
     }
 }
@@ -196,12 +203,4 @@ input {
 #intro {
     font-size: 1em;
     color: $mainColor;
-}
-
-@media screen and (min-width: 1200px) {
-
-    #tip,
-    #intro {
-        grid-column-start: span 2;
-    }
 }
