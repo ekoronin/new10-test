@@ -7,11 +7,11 @@ const END_POINTS = {
   DURATIONS: '/durations',
   LOANS: '/loans'
 };
-JSON_SERVER_URl = 'http://localhost:5555';
+const JSON_SERVER_URL = 'http://localhost:5555';
 
 const getGoals = async () => {
   try {
-    const { data } = await axios.get(`${JSON_SERVER_URl}${END_POINTS.GOALS}`);
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.GOALS}`);
     return data;
   } catch (e) {
     console.error(`Error: ${e}; getGoals() => `, data);
@@ -21,9 +21,7 @@ const getGoals = async () => {
 
 const getGoal = async id => {
   try {
-    const { data } = await axios.get(
-      `${JSON_SERVER_URl}${END_POINTS.GOALS}?id=${id}`
-    );
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.GOALS}?id=${id}`);
     return data.length > 0 ? data[0] : null;
   } catch (e) {
     console.error(`Error: ${e}; getGoal(${id}) => `, data);
@@ -33,7 +31,7 @@ const getGoal = async id => {
 
 const getForms = async () => {
   try {
-    const { data } = await axios.get(`${JSON_SERVER_URl}${END_POINTS.FORMS}`);
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.FORMS}`);
     return data;
   } catch (e) {
     console.error(`Error: ${e}; getForms() => `, data);
@@ -43,9 +41,7 @@ const getForms = async () => {
 
 const getForm = async id => {
   try {
-    const { data } = await axios.get(
-      `${JSON_SERVER_URl}${END_POINTS.FORMS}?id=${id}`
-    );
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.FORMS}?id=${id}`);
     return data.length > 0 ? data[0] : null;
   } catch (e) {
     console.error(`Error: ${e}; getForm(${id}) => `, data);
@@ -55,9 +51,7 @@ const getForm = async id => {
 
 const getDurations = async () => {
   try {
-    const { data } = await axios.get(
-      `${JSON_SERVER_URl}${END_POINTS.DURATIONS}`
-    );
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.DURATIONS}`);
     return data;
   } catch (e) {
     console.error(`Error: ${e}; getDurations() => `, data);
@@ -67,7 +61,7 @@ const getDurations = async () => {
 
 const getLoans = async () => {
   try {
-    const { data } = await axios.get(`${JSON_SERVER_URl}${END_POINTS.LOANS}`);
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.LOANS}`);
     return data;
   } catch (e) {
     console.error(`Error: ${e}; getLoans() => `, data);
@@ -78,9 +72,7 @@ const getLoans = async () => {
 const getLoan = async (goalId, formId) => {
   const queryString = qs.stringify({ goalId, formId });
   try {
-    const { data } = await axios.get(
-      `${JSON_SERVER_URl}${END_POINTS.LOANS}?${queryString}`
-    );
+    const { data } = await axios.get(`${JSON_SERVER_URL}${END_POINTS.LOANS}?${queryString}`);
     return data;
   } catch (e) {
     console.error(`Error: ${e}; getLoan(${goalId}, ${formId}) => `, data);
