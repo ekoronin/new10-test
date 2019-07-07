@@ -217,7 +217,7 @@ class App extends Component {
             >
               Looptijd:
             </FormSelectIncDec>
-            <span id='tip'>
+            <span className='tip'>
               Tip: Use your mouse wheel too. And try to resize!
             </span>
             <div id='intro'>

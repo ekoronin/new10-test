@@ -38,7 +38,7 @@ export default function FormInput({
       numValue = parseInt(newValue);
     }
 
-    if (regexp.test(newValue) && numValue <= maxRange && numValue >= minRange) {
+    if (regexp.test(newValue) && numValue <= maxRange) {
       setAmount(numValue);
       onChange(numValue);
     }
@@ -62,9 +62,10 @@ export default function FormInput({
 
   useEffect(() => {
     let newAmount = amount;
-    if (amount < minRange) {
-      newAmount = minRange;
-    } else if (amount > maxRange) {
+    // if (amount < minRange) {
+    //   newAmount = minRange;
+    // } else
+    if (amount > maxRange) {
       newAmount = maxRange;
     }
 
@@ -86,6 +87,11 @@ export default function FormInput({
           value={amount}
         />
       </div>
+      {amount < minRange ? (
+        <span className='tip'>
+          Amount must be higher than {minRange} and lower than {maxRange}
+        </span>
+      ) : null}
     </div>
   );
 }
