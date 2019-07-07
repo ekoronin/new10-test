@@ -111,9 +111,7 @@ class LoanForm extends Component {
    * @return {Array} strings for duration selector
    */
   getDurationSelectData = (loanDurations, maxDuration) => {
-    return loanDurations
-      .filter(item => item <= maxDuration)
-      .map(item => `${item} maanden`);
+    return loanDurations.filter(item => item <= maxDuration).map(item => `${item} maanden`);
   };
 
   /**
@@ -192,7 +190,7 @@ class LoanForm extends Component {
 
   render() {
     return (
-      <form action='javascript:' id='loan-form'>
+      <form action='javascript:' id={this.props.id}>
         <FormSelect
           id='goal-selector'
           data={this.goals.map(item => item.type)}

@@ -35,19 +35,17 @@ export function App() {
           {({ loading, error, data }) => {
             if (loading) return <div className='tip'>Loading...</div>;
             if (error) return <div className='tip'>Error...</div>;
-            return <LoanForm data={data} onChange={handleLoanFormChange} />;
+            return <LoanForm id='loan-form' data={data} onChange={handleLoanFormChange} />;
           }}
         </Query>
 
         <div id='intro'>
           <h1>Voor ondernemers </h1>
-          Je bent ondernemer, en je wilt door. Je hebt plannen, ambities, en een
-          beetje haast. Het liefst regel je daar zo snel mogelijk een
-          bedrijfsfinanciering voor. Bij New10 kan dat: binnen 15 minuten weet
-          je wat je mogelijkheden zijn. Afspraken op een bankkantoor zijn niet
-          meer nodig: je vraagt de financiering volledig zelfstandig online aan.
-          Regel je bedrijfskrediet wanneer het jou uitkomt, zodat je dóór kunt
-          met ondernemen.
+          Je bent ondernemer, en je wilt door. Je hebt plannen, ambities, en een beetje haast. Het
+          liefst regel je daar zo snel mogelijk een bedrijfsfinanciering voor. Bij New10 kan dat:
+          binnen 15 minuten weet je wat je mogelijkheden zijn. Afspraken op een bankkantoor zijn
+          niet meer nodig: je vraagt de financiering volledig zelfstandig online aan. Regel je
+          bedrijfskrediet wanneer het jou uitkomt, zodat je dóór kunt met ondernemen.
         </div>
       </div>
 
