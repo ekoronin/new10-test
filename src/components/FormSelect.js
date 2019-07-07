@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * @param {Function} props.onChange onChange handler function
  * @param {Array}    props.data     Array of components data for selection
  */
-export default function FormSelect({ id, data, onChange, children }) {
+function FormSelect({ id, data, onChange, children }) {
   /**
    * Component method. Fires in response to onChange when typing.
    * @param {Event}
@@ -46,3 +46,5 @@ FormSelect.defaultProps = {
   onChange() {},
   data: []
 };
+
+export default FormSelect;

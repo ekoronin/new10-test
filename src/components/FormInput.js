@@ -12,15 +12,7 @@ import PropTypes from 'prop-types';
  * @param {String | Number}   props.value    initial value
  * @param {Array}   props.range    Min and Max values allowed by input
  */
-export default function FormInput({
-  id,
-  onChange,
-  regexp,
-  children,
-  value,
-  step,
-  range
-}) {
+function FormInput({ id, onChange, regexp, children, value, step, range }) {
   const [amount, setAmount] = useState(value);
   const minRange = Math.min(...range);
   const maxRange = Math.max(...range);
@@ -52,9 +44,7 @@ export default function FormInput({
    */
   const handleWheel = e => {
     const newAmount =
-      e.deltaY >= 0
-        ? Math.min(amount + step, maxRange)
-        : Math.max(amount - step, minRange);
+      e.deltaY >= 0 ? Math.min(amount + step, maxRange) : Math.max(amount - step, minRange);
 
     setAmount(newAmount);
     onChange(newAmount);
@@ -111,3 +101,5 @@ FormInput.defaultProps = {
   step: 1,
   range: [-Infinity, Infinity]
 };
+
+export default FormInput;

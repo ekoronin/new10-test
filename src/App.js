@@ -13,7 +13,7 @@ import { GET_ALL } from './queries/queries';
  * @param {Object}   props    props of the component
  */
 
-export function App() {
+function App() {
   const [rate, setRate] = useState(0);
   /**
    * Component method.

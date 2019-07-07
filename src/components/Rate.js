@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
  * @param {String | Number}   props.rate       Value to be displayed
 
  */
-export default function Rate({ rate }) {
+function Rate({ rate }) {
   return <div className='rate'>{rate}%</div>;
 }
 
@@ -20,3 +20,5 @@ Rate.propTypes = {
 Rate.defaultProps = {
   rate: 0
 };
+
+export default Rate;

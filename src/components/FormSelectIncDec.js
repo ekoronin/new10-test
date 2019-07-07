@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
  * @param {Function} props.onChange onChange handler function
  * @param {Array}    props.data     Array of components data for selection
  */
-export default function FormSelectIncDec({ id, data, onChange, children }) {
+function FormSelectIncDec({ id, data, onChange, children }) {
   const selectRef = useRef({});
 
   /**
@@ -34,10 +34,7 @@ export default function FormSelectIncDec({ id, data, onChange, children }) {
    * @return {Void}
    */
   const decrement = () => {
-    selectRef.current.selectedIndex = Math.max(
-      selectRef.current.selectedIndex - 1,
-      0
-    );
+    selectRef.current.selectedIndex = Math.max(selectRef.current.selectedIndex - 1, 0);
     onChange(selectRef.current.selectedIndex);
   };
 
@@ -65,11 +62,7 @@ export default function FormSelectIncDec({ id, data, onChange, children }) {
     <div>
       <label htmlFor={id}>{children}</label>
       <div className='bordered-inc-dec'>
-        <button
-          id='btn-dec'
-          className='select-controller-button'
-          onClick={decrement}
-        >
+        <button id='btn-dec' className='select-controller-button' onClick={decrement}>
           -
         </button>
         <select
@@ -77,9 +70,7 @@ export default function FormSelectIncDec({ id, data, onChange, children }) {
           id={id}
           onChange={handleChange}
           onWheel={handleWheel}
-          defaultValue={data.find(
-            (_, index) => index == selectRef.current.selectedIndex
-          )}
+          defaultValue={data.find((_, index) => index == selectRef.current.selectedIndex)}
         >
           {data.map(item => (
             <option key={item} value={item}>
@@ -87,11 +78,7 @@ export default function FormSelectIncDec({ id, data, onChange, children }) {
             </option>
           ))}
         </select>
-        <button
-          id='btn-inc'
-          className='select-controller-button'
-          onClick={increment}
-        >
+        <button id='btn-inc' className='select-controller-button' onClick={increment}>
           +
         </button>
       </div>
@@ -109,3 +96,5 @@ FormSelectIncDec.defaultProps = {
   onChange() {},
   data: []
 };
+
+export default FormSelectIncDec;
