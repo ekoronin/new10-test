@@ -1,3 +1,4 @@
+const { calculateRate } = require('../core/rateModel.js');
 const graphql = require('graphql');
 
 const {
@@ -7,7 +8,8 @@ const {
   GraphQLID,
   GraphQLInt,
   GraphQLList,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLFloat
 } = graphql;
 
 const {
@@ -17,7 +19,8 @@ const {
   getForms,
   getDurations,
   getLoan,
-  getLoans
+  getLoans,
+  getRateModel
 } = require('../json/api.js');
 
 const GoalType = new GraphQLObjectType({
@@ -126,6 +129,32 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const RootMutation = new GraphQLObjectType({
+  name: 'RootMutationType',
+  fields: {
+    rate: {
+      type: GraphQLFloat,
+      args: {
+        amount: { type: new GraphQLNonNull(GraphQLInt) },
+        duration: { type: new GraphQLNonNull(GraphQLInt) },
+        minDuration: { type: new GraphQLNonNull(GraphQLInt) },
+        maxDuration: { type: new GraphQLNonNull(GraphQLInt) }
+      },
+      async resolve(parent, { amount, duration, minDuration, maxDuration }) {
+        const rateModel = await getRateModel();
+        return calculateRate(
+          rateModel,
+          amount,
+          duration,
+          minDuration,
+          maxDuration
+        );
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery,
+  mutation: RootMutation
 });

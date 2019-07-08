@@ -38,5 +38,25 @@
       "maxDuration": 60
     }
   ],
-  "durations": [3, 6, 9, 12, 18, 24, 30, 36, 48, 60]
+  "durations": [3, 6, 9, 12, 18, 24, 30, 36, 48, 60],
+  "rateModel": [
+    {
+      "minRate": 6,
+      "maxRate": 8,
+      "minAmount": 0,
+      "maxAmount": 50000
+    },
+    {
+      "minRate": 5,
+      "maxRate": 7,
+      "minAmount": 50000,
+      "maxAmount": 150000
+    },
+    {
+      "minRate": 4,
+      "maxRate": 6,
+      "minAmount": 150000,
+      "maxAmount": 500000
+    }
+  ]
 }
