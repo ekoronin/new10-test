@@ -79,32 +79,32 @@ const RootQuery = new GraphQLObjectType({
       type: GoalType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, { id }) {
-        return getGoal(id);
+        return getGoal(id); //Promise here
       }
     },
     goals: {
       type: new GraphQLList(GoalType),
       resolve() {
-        return getGoals();
+        return getGoals(); //Promise here
       }
     },
     form: {
       type: FormType,
       args: { id: { type: new GraphQLNonNull(GraphQLID) } },
       resolve(parent, { id }) {
-        return getForm(id);
+        return getForm(id); //Promise here
       }
     },
     forms: {
       type: new GraphQLList(FormType),
       resolve() {
-        return getForms();
+        return getForms(); //Promise here
       }
     },
     durations: {
       type: new GraphQLList(GraphQLInt),
       resolve() {
-        return getDurations();
+        return getDurations(); //Promise here
       }
     },
     loan: {
@@ -115,13 +115,13 @@ const RootQuery = new GraphQLObjectType({
       },
 
       resolve(parent, args) {
-        return getLoan(args.goalId, args.formId);
+        return getLoan(args.goalId, args.formId); //Promise here
       }
     },
     loans: {
       type: new GraphQLList(LoanType),
       resolve() {
-        return getLoans();
+        return getLoans(); //Promise here
       }
     }
   }
