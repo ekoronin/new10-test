@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import FormSelect from './FormSelect';
@@ -7,112 +7,43 @@ import FormInput from './FormInput';
 
 import { findByGoalAndFormIds } from '../data/utils';
 
-class LoanForm extends Component {
-  static propTypes = {
-    data: PropTypes.object,
-    onChange: PropTypes.func
-  };
+/**
+ * Component method.
+ * Updates duration selector with new set of values
+ * depending on the matching loan parameters
+ * based on the newly selected GoalID and formID
+ * @param {Void}
+ * @return {Array} strings for duration selector
+ */
+function getDurationSelectData(loanDurations, maxDuration) {
+  return loanDurations.filter(item => item <= maxDuration).map(item => `${item} maanden`);
+}
 
-  static defaultProps = {
-    onChange() {},
-    data: []
-  };
-  /**
-   * Constructor
-   * Initializes state and class properties.
-   * @param {Object} props  props of the component
-   * @return {Void}
-   */
-  constructor(props) {
-    super(props);
-    this.state = {
-      range: [0, 0],
-      durationsSelectorData: []
-    };
-    //these hold loaded data
-    this.forms = [];
-    this.goals = [];
-    this.loans = [];
-    this.durations = [];
+function LoanForm(props) {
+  const [range, setRange] = useState([0, 0]);
+  const [durationSelectData, setDurationSelectData] = useState([]);
+  const { goals, forms, loans, durations } = props.data;
+  //these hold selected data
+  const [goal, setGoal] = useState(goals[0]);
+  const [form, setForm] = useState(forms[0]);
+  const [duration, setDuration] = useState(durations[0]);
+  const [amount, setAmount] = useState(0);
 
-    //these hold selected data
-    this.goal = '';
-    this.form = '';
-    this.duration = 0;
-    this.loan = null;
-    this.amount = 0;
+  //initComponent(props.data);
+  useEffect(() => {
+    const loan = findByGoalAndFormIds(loans, goal.id, form.id);
 
-    this.initComponent(props.data);
-  }
+    setRange([loan.minAmount, loan.maxAmount]);
+    setDurationSelectData(getDurationSelectData(durations, loan.maxDuration));
 
-  /**
-   * Component method.
-   * Populates UI controls with data via state update
-   * Sets default state.
-   * @param {Object}  data data from graphql server
-   * @return {void}
-   */
-  initComponent = data => {
-    Object.assign(this, data);
-
-    this.goal = this.goals[0];
-    this.form = this.forms[0];
-    this.updateLoan();
-
-    const { minAmount, minDuration } = this.loan;
-    this.duration = minDuration;
-    this.amount = minAmount;
-  };
-
-  /**
-   * Component method.
-   * Fetches new loan object fro the dataset
-   * based on the newly selected GoalID and formID
-   * @param {Void}
-   * @return {Void}
-   */
-  updateLoan = () => {
-    const {
-      loans,
-      goal: { id: goalId },
-      form: { id: formId }
-    } = this;
-    this.loan = findByGoalAndFormIds(loans, goalId, formId);
-  };
-
-  /**
-   * Component method.
-   * Sets new state based on the loan data
-   * and emits onChange event
-   * @param {Void}
-   * @return {Void}
-   */
-  onLoanUpdate = () => {
-    const { amount, duration, loan, durations } = this;
-    const { minAmount, maxAmount, maxDuration } = loan;
-
-    this.setState({
-      durationSelectorData: this.getDurationSelectData(durations, maxDuration),
-      range: [minAmount, maxAmount]
-    });
-    this.props.onChange({
+    props.onChange({
       amount,
       duration,
       loan
     });
-  };
-
-  /**
-   * Component method.
-   * Updates duration selector with new set of values
-   * depending on the matching loan parameters
-   * based on the newly selected GoalID and formID
-   * @param {Void}
-   * @return {Array} strings for duration selector
-   */
-  getDurationSelectData = (loanDurations, maxDuration) => {
-    return loanDurations.filter(item => item <= maxDuration).map(item => `${item} maanden`);
-  };
+    // setDuration(loan.minDuration);
+    //setAmount(loan.minAmount)
+  }, [goal, form, amount, duration]);
 
   /**
    * Component method.
@@ -123,11 +54,8 @@ class LoanForm extends Component {
    * @param {Number} index into the array of goalIDs
    * @return {Void}
    */
-  handleGoal = index => {
-    this.goal = this.goals[index];
-    this.updateLoan();
-
-    this.onLoanUpdate();
+  const handleGoal = index => {
+    setGoal(goals[index]);
   };
 
   /**
@@ -139,11 +67,8 @@ class LoanForm extends Component {
    * @param {Number} index into the array of formIDs
    * @return {Void}
    */
-  handleForm = index => {
-    this.form = this.forms[index];
-    this.updateLoan();
-
-    this.onLoanUpdate();
+  const handleForm = index => {
+    setForm(forms[index]);
   };
 
   /**
@@ -154,15 +79,8 @@ class LoanForm extends Component {
    * @param {Number} amount of money requested
    * @return {Void} strings for duration selector
    */
-  handleAmount = newAmount => {
-    this.amount = newAmount;
-
-    const { amount, duration, loan } = this;
-    this.props.onChange({
-      amount,
-      duration,
-      loan
-    });
+  const handleAmount = amount => {
+    setAmount(amount);
   };
 
   /**
@@ -173,61 +91,46 @@ class LoanForm extends Component {
    * @param {Number} index into the array of durations
    * @return {Void}
    */
-  handleDuration = index => {
-    this.duration = this.durations[index];
-
-    const { amount, duration, loan } = this;
-    this.props.onChange({
-      amount,
-      duration,
-      loan
-    });
+  const handleDuration = index => {
+    setDuration(durations[index]);
   };
 
-  componentDidMount() {
-    this.onLoanUpdate();
-  }
+  return (
+    <form action='javascript:' id={props.id}>
+      <FormSelect id='goal-selector' data={goals.map(item => item.type)} onChange={handleGoal}>
+        Doel:
+      </FormSelect>
 
-  render() {
-    return (
-      <form action='javascript:' id={this.props.id}>
-        <FormSelect
-          id='goal-selector'
-          data={this.goals.map(item => item.type)}
-          onChange={this.handleGoal}
-        >
-          Doel:
-        </FormSelect>
+      <FormSelect id='form-selector' data={forms.map(item => item.type)} onChange={handleForm}>
+        Bedrijfsvorm:
+      </FormSelect>
 
-        <FormSelect
-          id='form-selector'
-          data={this.forms.map(item => item.type)}
-          onChange={this.handleForm}
-        >
-          Bedrijfsvorm:
-        </FormSelect>
+      <FormInput
+        id='amount-input'
+        onChange={handleAmount}
+        regexp={/^[0-9]*$/}
+        value={amount}
+        step={1000}
+        range={range}
+      >
+        Financeering
+      </FormInput>
 
-        <FormInput
-          id='amount-input'
-          onChange={this.handleAmount}
-          regexp={/^[0-9]*$/}
-          value={this.amount}
-          step={1000}
-          range={this.state.range}
-        >
-          Financeering
-        </FormInput>
-
-        <FormSelectIncDec
-          id='duration-selector'
-          data={this.state.durationSelectorData}
-          onChange={this.handleDuration}
-        >
-          Looptijd:
-        </FormSelectIncDec>
-      </form>
-    );
-  }
+      <FormSelectIncDec id='duration-selector' data={durationSelectData} onChange={handleDuration}>
+        Looptijd:
+      </FormSelectIncDec>
+    </form>
+  );
 }
 
 export default LoanForm;
+
+LoanForm.propTypes = {
+  data: PropTypes.object,
+  onChange: PropTypes.func
+};
+
+LoanForm.defaultProps = {
+  onChange() {},
+  data: []
+};
