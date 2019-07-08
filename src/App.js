@@ -13,7 +13,12 @@ import { PUT_RATE_MUTATION } from './queries/mutations';
  */
 
 function App() {
+  //we keep here the mutation execution function
+  //which later runs on LoanForm change
   const rateCallback = useRef(new Function());
+  //we keep the rate in the ref to rid of flickering when
+  //rate is being loaded over the mutation and incoming data is undefined
+  //this helps us display the old rate value and thus no flickering
   const rateValue = useRef(0);
   /**
    * Component method.
