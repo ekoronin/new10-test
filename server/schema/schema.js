@@ -28,7 +28,7 @@ const GoalType = new GraphQLObjectType({
     loans: {
       type: new GraphQLList(LoanType),
       resolve(parent, args) {
-        return getLoan(parent.id);
+        return getLoan(parent.id); //Promise here
       }
     }
   })
@@ -42,7 +42,7 @@ const FormType = new GraphQLObjectType({
     loans: {
       type: new GraphQLList(LoanType),
       resolve(parent, args) {
-        return getLoan(undefined, parent.id);
+        return getLoan(undefined, parent.id); //Promise here
       }
     }
   })
@@ -56,13 +56,13 @@ const LoanType = new GraphQLObjectType({
     goal: {
       type: GoalType,
       resolve(parent, args) {
-        return getGoal(parent.goalId);
+        return getGoal(parent.goalId); //Promise here
       }
     },
     form: {
       type: FormType,
       resolve(parent, args) {
-        return getForm(parent.formId);
+        return getForm(parent.formId); //Promise here
       }
     },
     minAmount: { type: GraphQLInt },
@@ -113,7 +113,6 @@ const RootQuery = new GraphQLObjectType({
         goalId: { type: GraphQLID },
         formId: { type: GraphQLID }
       },
-
       resolve(parent, args) {
         return getLoan(args.goalId, args.formId); //Promise here
       }
